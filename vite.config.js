@@ -31,7 +31,10 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         // 样式覆盖
-        additionalData: `@use "@/styles/element/index.scss" as *;`,
+        additionalData: `
+        @use "@/styles/element/index.scss" as *;
+        @use "@/styles/var.scss" as *;
+        `,
       },
     },
   },
