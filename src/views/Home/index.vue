@@ -1,3 +1,6 @@
 <script setup></script>
-<template>Home</template>
-<style></style>
+<template>
+    <div style="height:1000px">home</div>
+</template>
+<style>
+</style>

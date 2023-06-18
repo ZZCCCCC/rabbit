@@ -7,8 +7,8 @@ const httpInstance = axios.create({
     timeout: 5000
 })
 // 请求拦截器
-axios.interceptors.request.use(config => config, e => Promise.reject(e))
+httpInstance.interceptors.request.use(config => config, e => Promise.reject(e))
 // 响应拦截器
-axios.interceptors.response.use(res => res.data, e => { return Promise.reject(e) })
+httpInstance.interceptors.response.use(res => { return res.data }, e => { return Promise.reject(e) })
 
 export default httpInstance
