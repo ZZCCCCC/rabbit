@@ -4,7 +4,7 @@ import { getCategoryAPI } from "@/apis/category";
 import { getBannerAPI } from "@/apis/home";
 import { ref, onMounted, watch } from "vue";
 // 获取路由参数
-import { useRoute } from "vue-router";
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
 
 const categoryData = ref({});
 const route = useRoute();
@@ -18,18 +18,22 @@ onMounted(() => {
   getCategory(route.params.id);
 });
 
-watch(
-  () => route.params,
-  (newValue, oldValue) => {
-    // console.log(newValue);
-    // console.log(oldValue);
-    if (newValue.id == null) {
-      return;
-    }
-    getCategory(newValue.id);
-  }
-  // { immediate: true }
-);
+//路由参数变化时，分类接口重新发送
+onBeforeRouteUpdate((to, from) => {
+  getCategory(to.params.id);
+});
+// watch(
+//   () => route.params,
+//   (newValue, oldValue) => {
+//     // console.log(newValue);
+//     // console.log(oldValue);
+//     if (newValue.id == null) {
+//       return;
+//     }
+//     getCategory(newValue.id);
+//   }
+//   // { immediate: true }
+// );
 
 // 轮播图
 const bannerList = ref([]);
