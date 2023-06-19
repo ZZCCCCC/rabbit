@@ -6,12 +6,10 @@ import Category from '@/views/Category/index.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: "/layout" },
     {
-      path: '/layout', component: Layout, children: [
-        // { path: '', redirect: 'home' },
+      path: '/', component: Layout, children: [
         { path: '', component: Home },
-        { path: 'category', component: Category }
+        { path: 'category/:id', component: Category }
       ]
     },
     { path: '/login', component: Login }
