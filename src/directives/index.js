@@ -7,7 +7,7 @@ export const lazyPlugin = {
             mounted(el, binding) {
                 // el:绑定的元素
                 // binding：指令对象  binding.value   指的时等号后面表达式的值
-                console.log(el, binding.value);
+                // console.log(el, binding.value);
 
                 useIntersectionObserver(
                     el,
@@ -16,6 +16,8 @@ export const lazyPlugin = {
                         if (isIntersecting) {
                             // 进入视口区域
                             el.src = binding.value
+                            // 赋值完毕后，停止监听
+                            stop()
                         }
                     },
                 )
