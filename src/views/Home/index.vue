@@ -1,5 +1,5 @@
 <script setup>
-import Homehot from "./components/Homehot.vue";
+import HomeHot from "./components/Homehot.vue";
 import HomeCategory from "./components/HomeCategory.vue";
 import HomeBanner from "./components/HomeBanner.vue";
 import HomeNew from "./components/HomeNew.vue";
