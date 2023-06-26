@@ -4,7 +4,16 @@ import { ref } from "vue";
 const form = ref({
   account: "",
   password: "",
+  agree: true,
 });
+const formRef = ref(null);
+const login = () => {
+  formRef.value.validate((valid) => {
+    if (valid) {
+      //表单验证成功
+    }
+  });
+};
 const rules = {
   account: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
   password: [
@@ -14,6 +23,18 @@ const rules = {
       max: 14,
       message: "密码为6-14个字符",
       trigger: "blur",
+    },
+  ],
+  agree: [
+    {
+      // 自定义校验规则
+      validator: (rule, value, callback) => {
+        if (value) {
+          callback();
+        } else {
+          callback(new Error("请勾选协议"));
+        }
+      },
     },
   ],
 };
@@ -42,6 +63,7 @@ const rules = {
         <div class="account-box">
           <div class="form">
             <el-form
+              ref="formRef"
               :model="form"
               :rules="rules"
               label-position="right"
@@ -54,12 +76,14 @@ const rules = {
               <el-form-item prop="password" label="密码">
                 <el-input v-model="form.password" />
               </el-form-item>
-              <el-form-item label-width="22px">
-                <el-checkbox size="large">
+              <el-form-item label-width="22px" prop="agree">
+                <el-checkbox size="large" v-model="form.agree">
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="login"
+                >点击登录</el-button
+              >
             </el-form>
           </div>
         </div>
