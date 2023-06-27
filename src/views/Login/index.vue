@@ -1,16 +1,32 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { loginAPI } from "@/apis/user";
+import { useUserStore } from "@/stores/user.js";
+import { useRouter } from "vue-router";
+import "element-plus/theme-chalk/el-message.css";
+import { ElMessage } from "element-plus";
+const router = useRouter();
 // 表单验证
 const form = ref({
-  account: "",
-  password: "",
+  account: "demo",
+  password: "hm#qd@23!",
   agree: true,
 });
 const formRef = ref(null);
-const login = () => {
-  formRef.value.validate((valid) => {
+const userStore = useUserStore();
+const doLogin = () => {
+  const { account, password } = form.value;
+  formRef.value.validate(async (valid) => {
+    // valid: 所有表单都通过校验  才为true
+    console.log(valid);
+    // 以valid做为判断条件 如果通过校验才执行登录逻辑
     if (valid) {
-      //表单验证成功
+      // TODO LOGIN
+      await userStore.getUserInfo({ account, password });
+      // 1. 提示用户
+      ElMessage({ type: "success", message: "登录成功" });
+      // 2. 跳转首页
+      router.replace({ path: "/" });
     }
   });
 };
@@ -81,7 +97,7 @@ const rules = {
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn" @click="login"
+              <el-button size="large" class="subBtn" @click="doLogin"
                 >点击登录</el-button
               >
             </el-form>
