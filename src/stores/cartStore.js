@@ -12,7 +12,7 @@ export const useCartStore = defineStore('cart', () => {
         const { skuId, count } = goods
         if (isLogin.value) {
             // 已登录
-            console.log(111);
+            // console.log(111);
             await insertCartAPI({ skuId, count })
             getCartAction()
         } else {
